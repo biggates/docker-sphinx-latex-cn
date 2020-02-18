@@ -4,17 +4,28 @@
     * Ubuntu 18.04 LTS
     * 使用 mirrors.aliyun.com 作为加速源
     * git
-    * texlive-xetex, latexmk
-    * python3
-    * msttcorefonts, fonts-freefont-otf
-* Python:
+    * texlive-xetex, texlive-lang-chinese, latexmk
+    * python3, pip3
+    * fonts-freefont-otf
+* pip:
+    * 使用 mirrors.aliyun.com 作为加速源
+    * sphinx 2.4.1
     * recommonmark
     * sphinx_rtd_theme
     * sphinx-markdown-tables
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
 
-## 约定
+
+## 手动编译镜像
+
+```bash
+$ docker build -t docker-sphinx-latex-cn:local .
+```
+
+## 使用
+
+### 目录约定
 
 在主机中，基于 git 管理一个目录（含有 `sphinx/source/conf.py`），将其挂载到 `/home/python/doc` ；另外将 `build` 目录挂载到 `/home/python/build` 。
 
@@ -33,14 +44,6 @@ sphinx/
 └─Makefile
 ```
 
-## 使用
-
-### 编译基础镜像
-
-```bash
-$ docker build -t docker-sphinx-build:local sphinx/docker
-```
-
 ### 初始化工作空间
 
 ```bash
@@ -56,7 +59,7 @@ $ rm -rf build/**
 ### 编译 html
 
 ```bash
-$ docker run -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-build:local make html
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:local make html
 ```
 
 产物是整个 `build/html` 目录。
@@ -64,7 +67,7 @@ $ docker run -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build d
 ### 编译 pdf
 
 ```bash
-$ docker run -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-build:local make latexpdf
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:local make latexpdf
 ```
 
 产物在 `build/latex/` 。

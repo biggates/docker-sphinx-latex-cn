@@ -1,4 +1,3 @@
-#FROM python:3.8.1-alpine
 FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -18,7 +17,6 @@ RUN apt-get update && apt-get install -y \
     plantuml \
     python3-pip \
     python3-venv \
-    msttcorefonts \
     fonts-freefont-otf \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -43,7 +41,6 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK True
 ENV PIP_NO_CACHE_DIR False
 ENV PYTHONUNBUFFERED True
 
-FROM python
 RUN python3 -m venv .venv \
     && . .venv/bin/activate \
     && pip3 install --requirement requirements.txt --upgrade -i https://mirrors.aliyun.com/pypi/simple/
