@@ -1,25 +1,4 @@
-FROM ubuntu:18.04
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV TZ Asia/Shanghai
-
-# use aliyun mirror
-ADD sources.list /etc/apt/sources.list
-
-RUN apt-get update && apt-get install -y \
-    git \
-    texlive \
-    texlive-latex-extra \
-    texlive-latex-recommended \
-    texlive-xetex \
-    latexmk \
-    texlive-lang-chinese \
-    plantuml \
-    python3-pip \
-    python3-venv \
-    fonts-freefont-otf \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+FROM docker-sphinx-latex-cn:base
 
 RUN addgroup --gid 1000 python
 

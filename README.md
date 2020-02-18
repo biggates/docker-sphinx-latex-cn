@@ -1,12 +1,13 @@
 ## 主要内容
 
+### base
+
 * 操作系统：
     * Ubuntu 18.04 LTS
     * 使用 mirrors.aliyun.com 作为加速源
     * git
-    * texlive-xetex, texlive-lang-chinese, latexmk
     * python3, pip3
-    * fonts-freefont-otf
+    * plantuml
 * pip:
     * 使用 mirrors.aliyun.com 作为加速源
     * sphinx 2.4.1
@@ -16,11 +17,19 @@
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
 
+### latex
+
+* 操作系统：
+    * texlive-xetex, texlive-lang-chinese, latexmk
+    * fonts-freefont-otf
 
 ## 手动编译镜像
 
 ```bash
-$ docker build -t docker-sphinx-latex-cn:local .
+$ docker build -t docker-sphinx-latex-cn:base -f base/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:builder -f builder/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:latex-base -f latex-base/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:latex-builder -f latex-builder/Dockerfile .
 ```
 
 ## 使用
@@ -59,7 +68,7 @@ $ rm -rf build/**
 ### 编译 html
 
 ```bash
-$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:local make html
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:builder make html
 ```
 
 产物是整个 `build/html` 目录。
@@ -67,7 +76,7 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 ### 编译 pdf
 
 ```bash
-$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:local make latexpdf
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:latex-builder make latexpdf
 ```
 
 产物在 `build/latex/` 。
