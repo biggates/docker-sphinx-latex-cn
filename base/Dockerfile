@@ -2,9 +2,6 @@ FROM nikolaik/python-nodejs:python3.8-nodejs12
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# use aliyun mirror
-ADD sources.list /etc/apt/sources.list
-
 RUN apt-get update && apt-get install --no-install-recommends -y \
     plantuml \
     && apt-get clean \
