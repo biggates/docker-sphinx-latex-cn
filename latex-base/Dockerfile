@@ -1,4 +1,4 @@
-FROM docker-sphinx-latex-cn:base
+FROM biggates/docker-sphinx-latex-cn:base
 
 RUN apt-get update && apt-get install -y \
     texlive \

@@ -68,7 +68,7 @@ $ rm -rf build/**
 ### 编译 html
 
 ```bash
-$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:builder make html
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build biggates/docker-sphinx-latex-cn:builder make html
 ```
 
 产物是整个 `build/html` 目录。
@@ -76,7 +76,7 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 ### 编译 pdf
 
 ```bash
-$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build docker-sphinx-latex-cn:latex-builder make latexpdf
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build biggates/docker-sphinx-latex-cn:latex-builder make latexpdf
 ```
 
 产物在 `build/latex/` 。
@@ -84,7 +84,7 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 ### node 环境
 
 ```bash
-$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build -v "": docker-sphinx-latex-cn:node-builder make latexpdf
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build biggates/docker-sphinx-latex-cn:node-builder make latexpdf
 ```
 
 ## 参考
