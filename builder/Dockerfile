@@ -1,18 +1,15 @@
 FROM biggates/docker-sphinx-latex-cn:base
 
-RUN addgroup --gid 1000 python
-
-RUN useradd -g python --uid 1000 python
+RUN addgroup --gid 1000 python \
+    && useradd -g python --uid 1000 python
 
 COPY docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 WORKDIR /home/python
 
-RUN mkdir doc
-RUN chown -R python: /home/python
-
 USER python
+RUN mkdir doc
 COPY requirements.txt ./
 COPY Makefile ./
 

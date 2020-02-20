@@ -2,14 +2,13 @@
 
 ### base
 
-* 操作系统：
-    * Ubuntu 18.04 LTS
-    * 使用 mirrors.aliyun.com 作为加速源
-    * git
-    * python3, pip3
-    * plantuml
+* 操作系统
+    * 基于 [nikolaik/python-nodejs:python3.8-nodejs12](https://hub.docker.com/layers/nikolaik/python-nodejs/python3.8-nodejs12/images/sha256-b0d1808fc94f41e02af1323eb41071aa484317170f9a09d7db4522d2df2c7ef5?context=explore)
+        * Debian buster
+        * git
+        * python3, pip3
+    * 再安装 plantuml
 * pip:
-    * 使用 mirrors.aliyun.com 作为加速源
     * sphinx 2.4.1
     * recommonmark
     * sphinx_rtd_theme
@@ -83,8 +82,16 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 ### node 环境
 
-```bash
-$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build biggates/docker-sphinx-latex-cn:node-builder make latexpdf
+在 Jenkins 中可以直接使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为 node 的 agent :
+
+```
+pipeline {
+  agent {
+    docker {
+        image 'biggates/docker-sphinx-latex-cn:latex-builder'
+    }
+  }
+}
 ```
 
 ## 参考

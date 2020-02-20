@@ -1,6 +1,6 @@
 FROM biggates/docker-sphinx-latex-cn:base
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
     texlive \
     texlive-latex-extra \
     texlive-latex-recommended \
