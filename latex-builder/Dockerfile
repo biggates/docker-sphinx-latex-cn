@@ -8,7 +8,7 @@ RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 WORKDIR /home/python
 
-RUN mkdir doc && chown python: doc
+RUN mkdir doc && chown -R python: .
 
 USER python
 COPY requirements.txt ./
