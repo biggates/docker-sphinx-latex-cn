@@ -22,7 +22,7 @@ ENV PYTHONUNBUFFERED True
 
 RUN python3 -m venv .venv \
     && . .venv/bin/activate \
-    && pip3 install --requirement requirements.txt --upgrade -i https://mirrors.aliyun.com/pypi/simple/
+    && pip3 install --requirement requirements.txt --upgrade
 
 ARG BUILD_DATE
 ARG VCS_REF

@@ -81,6 +81,12 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 产物在 `build/latex/` 。
 
+### node 环境
+
+```bash
+$ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build -v "": docker-sphinx-latex-cn:node-builder make latexpdf
+```
+
 ## 参考
 
 * https://github.com/keimlink/docker-sphinx-doc

@@ -1,8 +1,5 @@
 FROM docker-sphinx-latex-cn:base
 
-# use aliyun mirror
-ADD sources.list /etc/apt/sources.list
-
 RUN apt-get update && apt-get install -y \
     texlive \
     texlive-latex-extra \

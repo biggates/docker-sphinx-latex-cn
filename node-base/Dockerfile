@@ -1,13 +1,10 @@
-FROM ubuntu:18.04
+FROM docker-sphinx-latex-cn:latex-base
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV TZ Asia/Shanghai
+ADD sources.list /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
-    git \
-    plantuml \
-    python3-pip \
-    python3-venv \
+    nodejs \
+    yarn \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

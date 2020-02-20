@@ -1,4 +1,4 @@
-FROM docker-sphinx-latex-cn:latex-base
+FROM docker-sphinx-latex-cn:node-base
 
 RUN addgroup --gid 1000 python
 
