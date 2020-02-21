@@ -15,7 +15,7 @@ COPY Makefile ./
 
 RUN python -m venv .venv \
     && . .venv/bin/activate \
-    && python -m pip install --requirement requirements.pip
+    && python -m pip install --requirement requirements.txt
 
 VOLUME /home/python/doc
 VOLUME /home/python/build
