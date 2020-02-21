@@ -3,7 +3,7 @@
 ### base
 
 * 操作系统
-    * 基于 [nikolaik/python-nodejs:python3.8-nodejs12](https://hub.docker.com/layers/nikolaik/python-nodejs/python3.8-nodejs12/images/sha256-b0d1808fc94f41e02af1323eb41071aa484317170f9a09d7db4522d2df2c7ef5?context=explore)
+    * 基于 [nikolaik/python-nodejs:python3.8-nodejs12](https://hub.docker.com/r/nikolaik/python-nodejs)
         * Debian buster
         * git
         * python3, pip3
@@ -82,13 +82,19 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 ### node 环境
 
-在 Jenkins 中可以直接使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为 node 的 agent :
+在 Jenkins 中有如下限制：
+
+* 指定用 `root` 用户
+* 工作空间被强制挂载到 `/root/workspace/` 目录
+* 
+
+因此考虑使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为整个 agent :
 
 ```
 pipeline {
   agent {
     docker {
-        image 'biggates/docker-sphinx-latex-cn:latex-builder'
+        image 'biggates/docker-sphinx-latex-cn:latex-jenkins'
     }
   }
 }
