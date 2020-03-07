@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     texlive-latex-extra \
     texlive-latex-recommended \
     texlive-xetex \
+    texlive-scheme-full \
     latexmk \
     texlive-lang-chinese \
     fonts-freefont-otf \

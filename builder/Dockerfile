@@ -6,6 +6,7 @@ RUN addgroup --gid 1000 python \
 WORKDIR /home/python
 
 COPY bin/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN mkdir doc && chown -R python: .
 
