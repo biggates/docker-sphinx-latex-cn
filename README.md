@@ -7,29 +7,22 @@
         * Debian buster
         * git
         * python3, pip3
-    * 再安装 plantuml
-* pip:
-    * sphinx 2.4.1
+    * plantuml
+    * graphviz/dot
+* pip (see [requirements.txt](requirements.txt)):
+    * Sphinx 3.2.0
     * recommonmark
     * sphinx_rtd_theme
     * sphinx-markdown-tables
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
+    * sphinx-jsonschema
 
 ### latex
 
 * 操作系统：
     * texlive-xetex, texlive-lang-chinese, latexmk
     * fonts-freefont-otf
-
-## 手动编译镜像
-
-```bash
-$ docker build -t docker-sphinx-latex-cn:base -f base/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:builder -f builder/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:latex-base -f latex-base/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:latex-builder -f latex-builder/Dockerfile .
-```
 
 ## 使用
 
@@ -80,13 +73,13 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 产物在 `build/latex/` 。
 
-### node 环境
+### node 环境 (TODO)
 
 在 Jenkins 中有如下限制：
 
 * 指定用 `root` 用户
 * 工作空间被强制挂载到 `/root/workspace/` 目录
-* 
+* requirements.txt 可能会发生变化
 
 因此考虑使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为整个 agent :
 
@@ -98,6 +91,15 @@ pipeline {
     }
   }
 }
+```
+
+## 手动编译镜像
+
+```bash
+$ docker build -t docker-sphinx-latex-cn:base -f base/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:builder -f builder/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:latex-base -f latex-base/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:latex-builder -f latex-builder/Dockerfile .
 ```
 
 ## 参考
