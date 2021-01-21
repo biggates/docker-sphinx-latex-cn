@@ -73,7 +73,7 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 产物在 `build/latex/` 。
 
-### node 环境 (TODO)
+### Jenkins 环境
 
 在 Jenkins 中有如下限制：
 
@@ -81,17 +81,34 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 * 工作空间被强制挂载到 `/root/workspace/` 目录
 * requirements.txt 可能会发生变化
 
-因此考虑使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为整个 agent :
+在 Jenkinsfile 中按如下逻辑编写即可：
 
 ```
 pipeline {
-  agent {
-    docker {
-        image 'biggates/docker-sphinx-latex-cn:latex-jenkins'
-    }
-  }
+   // 在前面的 stage 里面检出项目
+	stage('Sphinx build') {
+		agent {
+			docker {
+            // reuseNode 是为了直接利用之前检出好的项目
+				reuseNode true
+				image 'biggates/docker-sphinx-latex-cn:builder'
+            // jenkins 会强制用 root 用户登录，因此手动再设置一次 PATH 否则找不到 sphinx
+				args "-e PATH=/home/python/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+			}
+		}
+		steps {
+         // 在这里手动切换到项目目录中的 sphinx 目录即可，不需要使用 /home/python/doc 
+			dir ('./docs') {
+				sh "make html"
+			}
+		}
+	}
 }
 ```
+
+### node 环境 (TODO)
+
+考虑过使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为整个 agent ，但目前暂未完成。
 
 ## 手动编译镜像
 
