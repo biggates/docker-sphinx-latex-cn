@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:python3.8-nodejs12
+FROM nikolaik/python-nodejs:python3.8-nodejs14
 
 ENV DEBIAN_FRONTEND noninteractive
 

@@ -2,34 +2,40 @@
 
 ### base
 
-* 操作系统
-    * 基于 [nikolaik/python-nodejs:python3.8-nodejs12](https://hub.docker.com/r/nikolaik/python-nodejs)
-        * Debian buster
-        * git
-        * python3, pip3
-    * plantuml
-    * graphviz/dot
+* 基于 [nikolaik/python-nodejs:python3.8-nodejs14](https://hub.docker.com/r/nikolaik/python-nodejs)
+    * 主体是 Debian buster
+    * git
+    * python3, pip3
+
+### builder
+
+* plantuml
+* graphviz/dot
 * sphinx 相关的扩展 (see [requirements.txt](requirements.txt)):
-    * Sphinx 3.2.0
+    * Sphinx
     * recommonmark
     * sphinx_rtd_theme
     * sphinx-markdown-tables
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
     * sphinx-jsonschema
-* scipy 相关的扩展
-    * matplotlib
-    * numpy
-    * pandas
-    * scikit-learn
-    * scipy
-    * wfdb
 
 ### latex
 
 * 操作系统：
     * texlive-xetex, texlive-lang-chinese, latexmk
     * fonts-freefont-otf
+
+### scipy-builder
+
+* scipy 相关的扩展
+    * matplotlib
+    * numpy
+    * pandas
+    * scikit-learn
+    * scipy
+    * twine
+    * wfdb
 
 ## 使用
 
@@ -92,19 +98,25 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 ```
 pipeline {
-   // 在前面的 stage 里面检出项目
+    // 在前面的 stage 里面检出项目，并处理 `docs` 目录中含有 sphinx 相关的内容
 	stage('Sphinx build') {
 		agent {
 			docker {
-            // reuseNode 是为了直接利用之前检出好的项目
+                // reuseNode 是为了直接利用之前检出好的项目
 				reuseNode true
 				image 'biggates/docker-sphinx-latex-cn:builder'
-            // jenkins 会强制用 root 用户登录，因此手动再设置一次 PATH 否则找不到 sphinx
+
+                // jenkins 会强制用 root 用户登录，因此手动再设置一次 PATH 否则找不到 sphinx
 				args "-e PATH=/home/python/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 			}
 		}
 		steps {
-         // 在这里手动切换到项目目录中的 sphinx 目录即可，不需要使用 /home/python/doc
+            // 安装项目中的 requirements，大部分常用项目已安装所以这里会比较快
+            sh "pip install -r requirements.txt"
+
+            // 如果使用 autodoc 组件，则还需要手动将当前目录安装到 pip
+            sh "pip install -e ."
+
 			dir ('./docs') {
 				sh "make html"
 			}
@@ -113,10 +125,6 @@ pipeline {
 }
 ```
 
-### node 环境 (TODO)
-
-考虑过使用 `biggates/docker-sphinx-latex-cn:latex-builder` 作为整个 agent ，但目前暂未完成。
-
 ## 手动编译镜像
 
 ```bash
@@ -124,6 +132,7 @@ $ docker build -t docker-sphinx-latex-cn:base -f base/Dockerfile .
 $ docker build -t docker-sphinx-latex-cn:builder -f builder/Dockerfile .
 $ docker build -t docker-sphinx-latex-cn:latex-base -f latex-base/Dockerfile .
 $ docker build -t docker-sphinx-latex-cn:latex-builder -f latex-builder/Dockerfile .
+$ docker build -t docker-sphinx-latex-cn:scipy-builder -f scipy-builder/Dockerfile .
 ```
 
 ## 参考

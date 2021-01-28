@@ -4,7 +4,7 @@ USER python
 
 RUN python -m venv .venv \
     && . .venv/bin/activate \
-    && python -m pip install --update \
+    && python -m pip install --upgrade \
         matplotlib \
         numpy \
         pandas \
