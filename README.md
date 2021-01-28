@@ -9,7 +9,7 @@
         * python3, pip3
     * plantuml
     * graphviz/dot
-* pip (see [requirements.txt](requirements.txt)):
+* sphinx 相关的扩展 (see [requirements.txt](requirements.txt)):
     * Sphinx 3.2.0
     * recommonmark
     * sphinx_rtd_theme
@@ -17,6 +17,13 @@
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
     * sphinx-jsonschema
+* scipy 相关的扩展
+    * matplotlib
+    * numpy
+    * pandas
+    * scikit-learn
+    * scipy
+    * wfdb
 
 ### latex
 
@@ -97,7 +104,7 @@ pipeline {
 			}
 		}
 		steps {
-         // 在这里手动切换到项目目录中的 sphinx 目录即可，不需要使用 /home/python/doc 
+         // 在这里手动切换到项目目录中的 sphinx 目录即可，不需要使用 /home/python/doc
 			dir ('./docs') {
 				sh "make html"
 			}
