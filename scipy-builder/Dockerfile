@@ -6,8 +6,10 @@ RUN python -m venv .venv \
     && . .venv/bin/activate \
     && python -m pip install --upgrade \
         matplotlib \
+        nbsphinx \
         numpy \
         pandas \
+        pandoc \
         pip \
         scikit-learn \
         scipy \

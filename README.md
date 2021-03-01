@@ -17,6 +17,7 @@
     * sphinx_rtd_theme
     * sphinx-markdown-tables
     * sphinxcontrib-plantuml
+    * sphinxcontrib-napoleon
     * sphinx-notfound-page
     * sphinx-jsonschema
 
@@ -32,10 +33,13 @@
     * matplotlib
     * numpy
     * pandas
+    * pandoc
     * scikit-learn
     * scipy
     * twine
     * wfdb
+* ipynb 相关的扩展
+    * nbsphinx
 
 ## 使用
 
