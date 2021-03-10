@@ -16,8 +16,8 @@
     * recommonmark
     * sphinx_rtd_theme
     * sphinx-markdown-tables
-    * sphinxcontrib-plantuml
     * sphinxcontrib-napoleon
+    * sphinxcontrib-plantuml
     * sphinx-notfound-page
     * sphinx-jsonschema
 
