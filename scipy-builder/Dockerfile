@@ -9,13 +9,13 @@ RUN python -m venv .venv \
         nbsphinx \
         numpy \
         pandas \
-        pandoc \
         pip \
         scikit-learn \
         scipy \
         setuptools \
         twine \
         wfdb \
+        xlsxwriter \
         wheel
 
 

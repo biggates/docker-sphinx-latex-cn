@@ -1,8 +1,10 @@
 recommonmark
 Sphinx
+sphinx-autobuild
 sphinx-rtd-theme
 sphinx-jsonschema
 sphinx-markdown-tables
+sphinx-material
 sphinxcontrib-napoleon
 sphinxcontrib-plantuml
 sphinx-notfound-page

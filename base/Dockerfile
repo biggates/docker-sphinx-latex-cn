@@ -1,10 +1,12 @@
-FROM nikolaik/python-nodejs:python3.8-nodejs14
+# FROM nikolaik/python-nodejs:python3.8-nodejs14
+FROM python:3.8-buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     plantuml \
     graphviz \
+    pandoc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
