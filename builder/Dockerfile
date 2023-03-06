@@ -21,4 +21,6 @@ RUN python -m venv .venv \
 VOLUME /home/python/doc
 VOLUME /home/python/build
 
+WORKDIR /home/python/doc
+
 ENTRYPOINT ["docker-entrypoint.sh"]

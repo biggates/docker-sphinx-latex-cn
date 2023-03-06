@@ -1,5 +1,4 @@
-# FROM nikolaik/python-nodejs:python3.8-nodejs14
-FROM python:3.8-buster
+FROM python:3.10-bullseye
 
 ENV DEBIAN_FRONTEND noninteractive
 

@@ -2,32 +2,52 @@
 
 ### base
 
-* 基于 [nikolaik/python-nodejs:python3.8-nodejs14](https://hub.docker.com/r/nikolaik/python-nodejs)
-    * 主体是 Debian buster
-    * git
-    * python3, pip3
+供 multi stage build 使用。
+
+* 基于 [nikolaik/python-nodejs:python3.10-nodejs18](https://hub.docker.com/r/nikolaik/python-nodejs)
+  * 主体是 Debian bullseye
+  * git
+  * python3, pip3
+* plantuml (openjdk)
+* graphviz/dot
+* pandoc
 
 ### builder
 
-* plantuml
-* graphviz/dot
-* sphinx 相关的扩展 (see [requirements.txt](requirements.txt)):
+用于通过 Sphinx 生成简单软件的 html 文档。
+
+* python 用户
+* `/home/python/doc` 和 `/home/python/build` 目录
+* sphinx 相关的 python 扩展 (see [requirements.txt](requirements.txt)):
     * Sphinx
     * recommonmark
+    * sphinx-autobuild
+    * sphinx-last-updated-by-git
     * sphinx_rtd_theme
     * sphinx-markdown-tables
     * sphinxcontrib-napoleon
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
-    * sphinx-jsonschema
 
-### latex
+### latex-base
 
-* 操作系统：
-    * texlive-xetex, texlive-lang-chinese, latexmk
-    * fonts-freefont-otf
+包含 latex 基础环境，供 multi stage build 使用。
+
+* latex 相关:
+  * texlive, texlive-xetex
+  * texlive-latex-extra, texlive-latex-recommended, texlive-generic-recommended
+  * latexmk
+  * texlive-lang-chinese
+* 字体:
+  * fonts-freefont-otf
+
+### latex-builder
+
+用于使用 Sphinx 生成简单软件的 pdf。
 
 ### scipy-builder
+
+包含常见的一些 python 库，如 numpy 等。这个镜像主要用于使用 sphinx 渲染软件文档 (如 type hints) 等。
 
 * scipy 相关的扩展
     * matplotlib
@@ -103,29 +123,29 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 ```
 pipeline {
     // 在前面的 stage 里面检出项目，并处理 `docs` 目录中含有 sphinx 相关的内容
-	stage('Sphinx build') {
-		agent {
-			docker {
+    stage('Sphinx build') {
+        agent {
+            docker {
                 // reuseNode 是为了直接利用之前检出好的项目
-				reuseNode true
-				image 'biggates/docker-sphinx-latex-cn:builder'
+                reuseNode true
+                image 'biggates/docker-sphinx-latex-cn:builder'
 
                 // jenkins 会强制用 root 用户登录，因此手动再设置一次 PATH 否则找不到 sphinx
-				args "-e PATH=/home/python/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-			}
-		}
-		steps {
+                args "-e PATH=/home/python/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            }
+        }
+        steps {
             // 安装项目中的 requirements，大部分常用项目已安装所以这里会比较快
             sh "pip install -r requirements.txt"
 
             // 如果使用 autodoc 组件，则还需要手动将当前目录安装到 pip
             sh "pip install -e ."
 
-			dir ('./docs') {
-				sh "make html"
-			}
-		}
-	}
+            dir ('./docs') {
+                sh "make html"
+            }
+        }
+    }
 }
 ```
 
