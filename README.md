@@ -35,11 +35,13 @@
 
 * latex 相关:
   * texlive, texlive-xetex
-  * texlive-latex-extra, texlive-latex-recommended, texlive-generic-recommended
+  * texlive-latex-extra, texlive-latex-recommended
   * latexmk
   * texlive-lang-chinese
+  * texlive-science
 * 字体:
   * fonts-freefont-otf
+  * fonts-noto-cjk
 
 ### latex-builder
 

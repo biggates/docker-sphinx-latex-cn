@@ -7,9 +7,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     texlive-latex-extra \
     texlive-latex-recommended \
     texlive-xetex \
-    texlive-generic-recommended \
+    texlive-science \
     latexmk \
     texlive-lang-chinese \
     fonts-freefont-otf \
+    fonts-noto-cjk \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

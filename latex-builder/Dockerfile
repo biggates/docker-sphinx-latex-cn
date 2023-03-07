@@ -16,11 +16,10 @@ COPY Makefile ./
 
 RUN python -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 
-RUN python -m venv .venv \
-    && . .venv/bin/activate \
+RUN python -m venv /home/python/.venv/ \
+    && . /home/python/.venv/bin/activate \
     && python -m pip install --requirement requirements.txt
 
-VOLUME /home/python/doc
 VOLUME /home/python/build
 
 WORKDIR /home/python/doc

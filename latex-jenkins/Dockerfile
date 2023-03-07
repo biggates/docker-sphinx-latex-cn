@@ -4,4 +4,4 @@ WORKDIR /root/
 
 COPY requirements.txt ./
 
-RUN pip install --requirement requirements.txt --upgrade
+RUN python -m pip install --requirement requirements.txt --upgrade
