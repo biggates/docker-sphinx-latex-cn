@@ -1,0 +1,9 @@
+matplotlib
+nbsphinx
+numpy
+pandas
+scikit-learn
+scipy
+sphinx-last-updated-by-git
+wfdb
+xlsxwriter

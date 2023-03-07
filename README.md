@@ -49,6 +49,8 @@
 
 包含常见的一些 python 库，如 numpy 等。这个镜像主要用于使用 sphinx 渲染软件文档 (如 type hints) 等。
 
+具体请看 [requirements_scipy.txt](./requirements_scipy.txt)
+
 * scipy 相关的扩展
     * matplotlib
     * numpy
@@ -56,10 +58,13 @@
     * pandoc
     * scikit-learn
     * scipy
-    * twine
     * wfdb
 * ipynb 相关的扩展
     * nbsphinx
+
+### scipy-latex-builder
+
+在 latex 的基础上安装了 scipy-builder 中指定的各项 python packages 的镜像。
 
 ## 使用
 
@@ -110,6 +115,8 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 产物在 `build/latex/` 。
 
+### 带有
+
 ### Jenkins 环境
 
 在 Jenkins 中有如下限制：
@@ -152,11 +159,12 @@ pipeline {
 ## 手动编译镜像
 
 ```bash
-$ docker build -t docker-sphinx-latex-cn:base -f base/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:builder -f builder/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:latex-base -f latex-base/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:latex-builder -f latex-builder/Dockerfile .
-$ docker build -t docker-sphinx-latex-cn:scipy-builder -f scipy-builder/Dockerfile .
+$ docker build -t biggates/docker-sphinx-latex-cn:base -f base/Dockerfile .
+$ docker build -t biggates/docker-sphinx-latex-cn:builder -f builder/Dockerfile .
+$ docker build -t biggates/docker-sphinx-latex-cn:latex-base -f latex-base/Dockerfile .
+$ docker build -t biggates/docker-sphinx-latex-cn:latex-builder -f latex-builder/Dockerfile .
+$ docker build -t biggates/docker-sphinx-latex-cn:scipy-builder -f scipy-builder/Dockerfile .
+$ docker build -t biggates/docker-sphinx-latex-cn:scipy-latex-builder -f scipy-latex-builder/Dockerfile .
 ```
 
 ## 参考
