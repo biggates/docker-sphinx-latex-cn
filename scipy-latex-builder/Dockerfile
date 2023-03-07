@@ -1,4 +1,4 @@
-FROM biggates/docker-sphinx-latex-cn:builder
+FROM biggates/docker-sphinx-latex-cn:latex-builder
 
 USER python
 

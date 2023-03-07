@@ -1,7 +1,8 @@
-# FROM nikolaik/python-nodejs:python3.8-nodejs14
-FROM python:3.8-buster
+FROM python:3.10-bullseye
 
 ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed -i -E 's/(deb|security).debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     plantuml \
