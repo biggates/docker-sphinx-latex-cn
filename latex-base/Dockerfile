@@ -1,6 +1,6 @@
 FROM biggates/docker-sphinx-latex-cn:base
 
-RUN sed -i -E 's/(deb|security).debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
+# RUN sed -i -E 's/(deb|security).debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     texlive \

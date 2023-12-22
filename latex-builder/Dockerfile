@@ -14,7 +14,7 @@ USER python
 COPY requirements.txt ./
 COPY Makefile ./
 
-RUN python -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+# RUN python -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 
 RUN python -m venv /home/python/.venv/ \
     && . /home/python/.venv/bin/activate \
