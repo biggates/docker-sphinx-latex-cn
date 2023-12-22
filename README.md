@@ -4,7 +4,7 @@
 
 供 multi stage build 使用。
 
-* 基于 [nikolaik/python-nodejs:python3.10-nodejs18](https://hub.docker.com/r/nikolaik/python-nodejs)
+* 基于 [nikolaik/python-nodejs:python3.10-nodejs20](https://hub.docker.com/r/nikolaik/python-nodejs)
   * 主体是 Debian bullseye
   * git
   * python3, pip3
@@ -20,12 +20,10 @@
 * `/home/python/doc` 和 `/home/python/build` 目录
 * sphinx 相关的 python 扩展 (see [requirements.txt](requirements.txt)):
     * Sphinx
-    * recommonmark
+    * myst-parser
     * sphinx-autobuild
     * sphinx-last-updated-by-git
     * sphinx_rtd_theme
-    * sphinx-markdown-tables
-    * sphinxcontrib-napoleon
     * sphinxcontrib-plantuml
     * sphinx-notfound-page
 
@@ -57,12 +55,10 @@
     * matplotlib
     * numpy
     * pandas
-    * pandoc
     * scikit-learn
     * scipy
-    * wfdb
 * ipynb 相关的扩展
-    * nbsphinx
+    * myst-nb
 
 ### scipy-latex-builder
 
@@ -103,8 +99,16 @@ $ rm -rf build/**
 
 ### 编译 html
 
+(Linux)
+
 ```bash
 $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/build biggates/docker-sphinx-latex-cn:builder make html
+```
+
+(Windows)
+
+```cmd
+> docker run --rm -v "%CD%":/home/python/doc -v "%CD%\build":/home/python/build biggates/docker-sphinx-latex-cn:builder make html
 ```
 
 产物是整个 `build/html` 目录。
@@ -117,15 +121,13 @@ $ docker run --rm -v "$(pwd)":/home/python/doc -v "$(pwd)/build":/home/python/bu
 
 产物在 `build/latex/` 。
 
-### 带有
-
-### Jenkins 环境
+### 在 Jenkins 环境中使用
 
 在 Jenkins 中有如下限制：
 
 * 指定用 `root` 用户
 * 工作空间被强制挂载到 `/root/workspace/` 目录
-* requirements.txt 可能会发生变化
+* 实际项目中的 requirements.txt 可能会发生变化
 
 在 Jenkinsfile 中按如下逻辑编写即可：
 
@@ -144,7 +146,7 @@ pipeline {
             }
         }
         steps {
-            // 安装项目中的 requirements，大部分常用项目已安装所以这里会比较快
+            // 安装项目中的 requirements
             sh "pip install -r requirements.txt"
 
             // 如果使用 autodoc 组件，则还需要手动将当前目录安装到 pip

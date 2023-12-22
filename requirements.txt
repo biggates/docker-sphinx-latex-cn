@@ -1,10 +1,8 @@
-recommonmark
+myst_nb
 Sphinx
 sphinx-autobuild
 sphinx-last-updated-by-git
 sphinx-rtd-theme
-sphinx-markdown-tables
-sphinxcontrib-napoleon
 sphinxcontrib-plantuml
 sphinx-notfound-page
 wheel
